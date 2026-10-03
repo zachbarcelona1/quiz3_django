@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet the Class</title>
+    <link rel="stylesheet" href="{% static 'main/style.css' %}">
+</head>
+<body>
+    <header class="banner">
+        <h1>MEET THE CLASS</h1>
+        <p class="sub">Model &rarr; View &rarr; URL &rarr; Template</p>
+        <div class="tools">
+            <input id="search" type="text" placeholder="Search name, town, subject..." autocomplete="off">
+            <span class="counter"><b id="shown">{{ total }}</b> / {{ total }} students</span>
+        </div>
+    </header>
+
+    <main class="board">
+        {% for s in students %}
+        <article class="tile" data-search="{{ s.name|lower }} {{ s.nickname|lower }} {{ s.hometown|lower }} {{ s.favorite_subject|lower }} {{ s.club|lower }}">
+            <div class="year">Year {{ s.year_level }}</div>
+            <h2>{{ s.name }}</h2>
+            {% if s.nickname %}<p class="nick">aka &ldquo;{{ s.nickname }}&rdquo;</p>{% endif %}
+            <dl>
+                <dt>From</dt><dd>{{ s.hometown }}</dd>
+                <dt>Loves</dt><dd>{{ s.favorite_subject }}</dd>
+                {% if s.club %}<dt>Club</dt><dd>{{ s.club }}</dd>{% endif %}
+            </dl>
+            {% if s.motto %}<p class="motto">&ldquo;{{ s.motto }}&rdquo;</p>{% endif %}
+        </article>
+        {% empty %}
+        <p class="empty">No students yet. Add some in the <a href="/admin/">admin site</a>.</p>
+        {% endfor %}
+    </main>
+    <p id="none" class="empty" hidden>No matches found.</p>
+
+    <script>
+        const box = document.getElementById('search');
+        const tiles = document.querySelectorAll('.tile');
+        const shown = document.getElementById('shown');
+        const none = document.getElementById('none');
+        box.addEventListener('input', () => {
+            const q = box.value.trim().toLowerCase();
+            let n = 0;
+            tiles.forEach(t => {
+                const hit = t.dataset.search.includes(q);
+                t.hidden = !hit;
+                if (hit) n++;
+            });
+            shown.textContent = n;
+            none.hidden = n !== 0 || tiles.length === 0;
+        });
+    </script>
+</body>
+</html>

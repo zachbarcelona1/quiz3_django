@@ -1,0 +1,81 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --ink: #111;
+    --paper: #fff8e7;
+    --yellow: #ffd23f;
+    --pink: #ff6b9d;
+    --mint: #6ee7b7;
+    --blue: #7cc4ff;
+}
+
+body {
+    font-family: 'Trebuchet MS', 'Segoe UI', Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    background-image: radial-gradient(#e8dcc0 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    min-height: 100vh;
+}
+
+.banner {
+    background: var(--yellow);
+    border-bottom: 5px solid var(--ink);
+    padding: 2.5rem 1.25rem 2rem;
+    text-align: center;
+}
+.banner h1 {
+    font-size: clamp(2rem, 6vw, 3.6rem);
+    letter-spacing: .06em;
+    text-shadow: 4px 4px 0 var(--pink);
+}
+.sub { margin: .6rem 0 1.5rem; font-weight: 700; }
+
+.tools { display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap; }
+#search {
+    width: min(420px, 100%);
+    padding: .8rem 1rem;
+    border: 4px solid var(--ink);
+    background: #fff;
+    font-size: 1rem;
+    box-shadow: 5px 5px 0 var(--ink);
+    outline: none;
+}
+#search:focus { background: #f0fff8; }
+.counter { background: var(--ink); color: #fff; padding: .5rem .9rem; font-weight: 700; }
+
+.board {
+    max-width: 1100px; margin: 2.5rem auto; padding: 0 1.25rem;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.75rem;
+}
+
+.tile {
+    background: #fff;
+    border: 4px solid var(--ink);
+    padding: 1.4rem 1.2rem;
+    box-shadow: 8px 8px 0 var(--ink);
+    transition: transform .15s, box-shadow .15s;
+    position: relative;
+}
+.tile:nth-child(4n+1) { background: var(--mint); }
+.tile:nth-child(4n+2) { background: var(--blue); }
+.tile:nth-child(4n+3) { background: #ffc2d9; }
+.tile:nth-child(4n+4) { background: #fff; }
+.tile:hover { transform: translate(-4px, -4px); box-shadow: 12px 12px 0 var(--ink); }
+.tile[hidden] { display: none; }
+
+.year {
+    position: absolute; top: -16px; right: 14px;
+    background: var(--ink); color: var(--yellow);
+    padding: .25rem .7rem; font-weight: 700; font-size: .8rem;
+}
+.tile h2 { font-size: 1.35rem; margin-bottom: .2rem; }
+.nick { font-style: italic; margin-bottom: .9rem; }
+
+dl { display: grid; grid-template-columns: 4.5rem 1fr; gap: .35rem .5rem; margin-bottom: .9rem; }
+dt { font-weight: 800; text-transform: uppercase; font-size: .75rem; padding-top: .15rem; }
+.motto { border-top: 3px dashed var(--ink); padding-top: .7rem; font-weight: 700; }
+
+.empty { text-align: center; padding: 2rem; font-weight: 700; }
+.empty[hidden] { display: none; }
+a { color: var(--ink); }
